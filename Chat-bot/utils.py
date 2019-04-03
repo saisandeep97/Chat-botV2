@@ -22,9 +22,9 @@ import json
 
 #============================================model parameters===========================
 # Configure models
-#attn_model = 'dot'##general and concat is another
+attn_model = 'dot'##general and concat is another
 #attn_model = 'general'
-attn_model = 'concat'
+#attn_model = 'concat'
 PICKLE_PATH = os.path.join("pickles","super.file")
 hidden_size = 512
 encoder_n_layers = 2
@@ -32,7 +32,7 @@ decoder_n_layers = 2
 dropout = 0.1
 batch_size = 64
 # Set checkpoint to load from; set to None if starting from scratch
-loadFilename = os.path.join('.','model','240000_checkpoint.tar')
+loadFilename = os.path.join('.','model','100000_checkpoint.tar')
 ##setting below to True is not recommended
 USE_MULTINOMIAL = False
 TEMP = 0.7

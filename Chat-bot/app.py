@@ -160,9 +160,9 @@ if __name__ == '__main__':
     # Load model if a loadFilename is provided
     if loadFilename:
         # If loading on same machine the model was trained on
-        #checkpoint = torch.load(loadFilename)
+        checkpoint = torch.load(loadFilename)
         # If loading a model trained on GPU to CPU
-        checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
+        #checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
         encoder_sd = checkpoint['en']
         decoder_sd = checkpoint['de']
         encoder_optimizer_sd = checkpoint['en_opt']
