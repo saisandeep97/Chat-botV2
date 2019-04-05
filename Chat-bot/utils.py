@@ -38,9 +38,10 @@ corpus_name = 'chatbot'
 checkpoint_iter=375000
 #==============================================================================================
 # Set checkpoint to load from; set to None if starting from scratch
-loadFilename = os.path.join(save_dir, model_name, corpus_name, 
-                           '{}-{}_{}'.format(encoder_n_layers, decoder_n_layers, hidden_size), 
-                             '{}_checkpoint.tar'.format(checkpoint_iter))
+loadFilename= os.path.join(".","model",'{}_checkpoint.tar'.format(checkpoint_iter))
+#loadFilename = os.path.join(save_dir, model_name, corpus_name, 
+#                           '{}-{}_{}'.format(encoder_n_layers, decoder_n_layers, hidden_size), 
+#                             '{}_checkpoint.tar'.format(checkpoint_iter))
 ##setting below to True is not recommended
 USE_MULTINOMIAL = False
 TEMP = 0.7
