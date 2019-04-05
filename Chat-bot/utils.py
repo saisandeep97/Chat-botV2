@@ -31,8 +31,16 @@ encoder_n_layers = 2
 decoder_n_layers = 2
 dropout = 0.1
 batch_size = 64
+save_dir = os.path.join(".","model", "save")
+model_name = 'cb_model'
+corpus_name = 'chatbot'
+#==============================================================================================
+checkpoint_iter=375000
+#==============================================================================================
 # Set checkpoint to load from; set to None if starting from scratch
-loadFilename = os.path.join('.','model','100000_checkpoint.tar')
+loadFilename = os.path.join(save_dir, model_name, corpus_name, 
+                           '{}-{}_{}'.format(encoder_n_layers, decoder_n_layers, hidden_size), 
+                             '{}_checkpoint.tar'.format(checkpoint_iter))
 ##setting below to True is not recommended
 USE_MULTINOMIAL = False
 TEMP = 0.7
@@ -66,6 +74,7 @@ def normalizeString(s):
     s = re.sub(r"[^a-zA-Z.!?]+", r" ", s)
     pattern = re.compile(r"(.)\1{2,}")
     s=  pattern.sub(r"\1\1", s)
+    s = re.sub(r'\.+', " ", s)
     s = re.sub(r"\s+", r" ", s).strip()
     return s
 

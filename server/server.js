@@ -41,7 +41,7 @@ io.on("connection", socket => {
       "newMessage",
       generateMessage(
         "Admin",
-        'Say Hi to gobot with "#gobot Hi" as your message'
+        'Say Hi our bot'
       )
     );
     socket.broadcast
@@ -62,7 +62,7 @@ io.on("connection", socket => {
         generateMessage(user.name, message.text)
       );
     }
-    if (message.text.startsWith("#gobot")) {
+    if (message.text.length>0) {
       request.post(
         "http://localhost:5000/chatbot", {
           json: {
