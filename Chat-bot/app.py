@@ -25,6 +25,7 @@ import json
 app = Flask(__name__)
 
 
+
 class GreedySearchDecoder(nn.Module):
     def __init__(self, encoder, decoder):
         super(GreedySearchDecoder, self).__init__()
@@ -152,6 +153,7 @@ def foo():
 
 if __name__ == '__main__':
     #######################################################all the important functionalities#######################################################
+
     ##voc used for both utils and app
     with open(PICKLE_PATH, "rb") as f:
         voc = pickle.load(f)
@@ -195,4 +197,5 @@ if __name__ == '__main__':
     searcher = GreedySearchDecoder(encoder, decoder)
     #######################################################all the important functionalities#######################################################
     app.run(host='0.0.0.0', port=5000, debug=True)
+    os.system("cd .. & npm start")
 
