@@ -6,8 +6,9 @@
 <li>flask</li>
 <li>Nodejs</li>
 <li>sqlite- pip install sqlite3</li>
-<li>languagecheck(optional)- pip install language-check</li></ol>
-You can turn off the language check by setting USE_GRAMMAR variable in app.py to False
+<li>languagecheck(optional)- pip install language-check<br>
+You can turn off the language check by setting USE_GRAMMAR variable in app.py to False</li></ol>
+
 <h3>How to start the file ?</h3>
   <ol>
     <li>Download the weights file from here -https://drive.google.com/file/d/1oZ2qSjWD3VbKR1OVyO3OXyHHc-WYI1Ej/view?usp=sharing</li>
