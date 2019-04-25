@@ -39,7 +39,7 @@ def create_connection(db_file):
 
 app = Flask(__name__)
 
-USE_GRAMMAR=True
+USE_GRAMMAR=False
 
 class GreedySearchDecoder(nn.Module):
     def __init__(self, encoder, decoder):
