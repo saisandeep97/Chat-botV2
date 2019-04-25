@@ -7,7 +7,7 @@
 <li>Nodejs</li>
 <li>sqlite- pip install sqlite3</li>
 <li>languagecheck(optional)- pip install language-check<br>
-You can turn off the language check by setting USE_GRAMMAR variable in app.py to False</li></ol>
+Note:You can turn off the language check by setting USE_GRAMMAR variable in app.py to False</li></ol>
 
 <h3>How to start the file ?</h3>
   <ol>
