@@ -22,9 +22,24 @@ import pickle
 
 from flask import Flask, abort, request 
 import json
+import sqlite3
+from sqlite3 import Error
+ 
+ 
+def create_connection(db_file):
+    """ create a database connection to a SQLite database """
+    try:
+        conn = sqlite3.connect(db_file)
+        print(sqlite3.version)
+    except Error as e:
+        print(e)
+    finally:
+        conn.close()
+ 
+
 app = Flask(__name__)
 
-
+USE_GRAMMAR=True
 
 class GreedySearchDecoder(nn.Module):
     def __init__(self, encoder, decoder):
@@ -146,13 +161,41 @@ def foo():
     output_words = evaluate(encoder, decoder, searcher, voc, input_sentence, max_length=len(input_sentence.split()))
     # Format and print response sentence
     output_words[:] = [x for x in output_words if not (x == 'EOS' or x == 'PAD')]
+    output_words=" ".join(output_words)
+    try:
+        conn = sqlite3.connect("datastore.db")
+        conn.execute('''CREATE TABLE qanda(
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Question           TEXT      NOT NULL,
+        Answer            TEXT       NOT NULL);''')
+        print ("Table created successfully")
+        conn.close()
+    except:
+        conn.close()
+    try:
+        conn = sqlite3.connect("datastore.db")
+        conn.execute('''INSERT INTO qanda (Question,Answer)
+        VALUES ( ?, ?)''',input_sentence,output_words)
+        conn.commit()
+        print ("Value inserted successfully")
+        conn.close()
+    except:
+        conn.close()
+    if USE_GRAMMAR:
+        import language_check
+        
+        tool = language_check.LanguageTool('en-US')
+        matches = tool.check(output_words)
+        output_words=language_check.correct(output_words, matches)
+
     return json.dumps({
-        "text":' '.join(output_words)
+        "text":output_words
     })
 
 
 if __name__ == '__main__':
     #######################################################all the important functionalities#######################################################
+    create_connection("datastore.db")
 
     ##voc used for both utils and app
     with open(PICKLE_PATH, "rb") as f:
@@ -161,16 +204,17 @@ if __name__ == '__main__':
 
     # Load model if a loadFilename is provided
     if loadFilename:
+         print('loading the file')
         # If loading on same machine the model was trained on
         # checkpoint = torch.load(loadFilename)
         # If loading a model trained on GPU to CPU
-        checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
-        encoder_sd = checkpoint['en']
-        decoder_sd = checkpoint['de']
-        encoder_optimizer_sd = checkpoint['en_opt']
-        decoder_optimizer_sd = checkpoint['de_opt']
-        embedding_sd = checkpoint['embedding']
-        voc.__dict__ = checkpoint['voc_dict']
+         checkpoint = torch.load(loadFilename, map_location=torch.device('cpu'))
+         encoder_sd = checkpoint['en']
+         decoder_sd = checkpoint['de']
+         encoder_optimizer_sd = checkpoint['en_opt']
+         decoder_optimizer_sd = checkpoint['de_opt']
+         embedding_sd = checkpoint['embedding']
+         voc.__dict__ = checkpoint['voc_dict']
 
 
     print('Building encoder and decoder ...')

@@ -25,7 +25,7 @@ import json
 attn_model = 'dot'##general and concat is another
 #attn_model = 'general'
 #attn_model = 'concat'
-PICKLE_PATH = os.path.join("pickles","super.file")
+PICKLE_PATH = os.path.join("pickles","vocab.file")
 hidden_size = 512
 encoder_n_layers = 2
 decoder_n_layers = 2
@@ -35,7 +35,7 @@ save_dir = os.path.join(".","model", "save")
 model_name = 'cb_model'
 corpus_name = 'chatbot'
 #==============================================================================================
-checkpoint_iter=375000
+checkpoint_iter=400000
 #==============================================================================================
 # Set checkpoint to load from; set to None if starting from scratch
 loadFilename= os.path.join(".","model",'{}_checkpoint.tar'.format(checkpoint_iter))
